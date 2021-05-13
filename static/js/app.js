@@ -65,12 +65,12 @@ function init() {
             y: bubData.map(d => d.sample_values),//sample_values,
             text: bubData.map(d => d.otu_labels),//otu_labels,
             marker: {
+                colorscale: "Earth",
                 size: bubData.map(d => d.sample_values),
                 color: bubData.map(d => d.otu_ids)
             },
             mode: "markers"
         }
-
         var data2 = [trace2];
         var layout2 = {
             title: "Bubble- OTUs",
