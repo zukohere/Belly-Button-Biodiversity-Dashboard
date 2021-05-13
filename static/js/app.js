@@ -11,7 +11,8 @@ function init(){d3.json(path).then(function(data) {
         val.text(d);
         });
     
-    var UserSel = "940"
+    var UserSel = dropdownMenu.node().value
+    
     //filter based on the user selection
     var subjData = data.samples.filter(d => d.id===UserSel)[0]
     //sort by sample_values
@@ -71,6 +72,8 @@ function init(){d3.json(path).then(function(data) {
     // create demo text not table (or clear, then recreate)
     // restyle the charts.
 function optionChanged(subjectID){}
+
+//PREVENT REFESH OF PAGE using d3.event.preventDefault();
 
 //path is data/samples.json
 // d3.json(path).then(function(data) {
