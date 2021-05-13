@@ -3,6 +3,14 @@ path = "data/samples.json"
 function init(){d3.json(path).then(function(data) {
     // console.log(data);
     // populate the dropdown with entry corresponding to key value "names"
+    var dropdownMenu = d3.select("#selDataset");;
+    
+    data.names.forEach((d) => {
+        var option = dropdownMenu.append("option");
+        var val = option.append("value");
+        val.text(d);
+        });
+    
     var UserSel = "940"
     //filter based on the user selection
     var subjData = data.samples.filter(d => d.id===UserSel)[0]
@@ -18,6 +26,9 @@ function init(){d3.json(path).then(function(data) {
     var chartData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0,10)
 
     // generate  demo data based on default value from the json file.
+    var demoData = data.metadata.filter(d=>d.id==parseInt(UserSel))
+    console.log(demoData)
+    
 
 
 
@@ -31,25 +42,27 @@ function init(){d3.json(path).then(function(data) {
         mode: "bar+text"
     }
 
-    var data = [trace1];
-    var layout = {
-        title: "Top 10 OTUs",
+    var data1 = [trace1];
+    var layout1 = {
+        title: "Horizontal Bar - Top 10 OTUs",
       };
-      Plotly.newPlot("bar", data, layout);
-      trace1 = {
-        x: chartData.map(d=>d.sample_values),//sample_values,
-        y: chartData.map(d=>d.otu_ids),//otu_ids,
-        type: "bar",
-        orientation: "h",
+      Plotly.newPlot("bar", data1, layout1);
+      // Bubble Plot
+      trace2 = {
+        y: chartData.map(d=>d.sample_values),//sample_values,
+        x: chartData.map(d=>d.otu_ids),//otu_ids,
         text: chartData.map(d=>d.otu_labels),//otu_labels,
-        mode: "bar+text"
+        marker:{ size: chartData.map(d=>d.sample_values),
+                color: chartData.map(d=>d.otu_ids)},
+        text: chartData.map(d=>d.otu_labels),//otu_labels,
+        mode: "markers"
     }
 
-    var data = [trace1];
-    var layout = {
-        title: "Top 10 OTUs",
+    var data2 = [trace2];
+    var layout2 = {
+        title: "Bubble: Top 10 OTUs",
       };
-      Plotly.newPlot("bar", data, layout);
+      Plotly.newPlot("bubble", data2, layout2);
     
 })
 };
