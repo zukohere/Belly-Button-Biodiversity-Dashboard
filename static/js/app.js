@@ -27,9 +27,15 @@ function init(){d3.json(path).then(function(data) {
     var chartData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0,10)
 
     // generate  demo data based on default value from the json file.
-    var demoData = data.metadata.filter(d=>d.id==parseInt(UserSel))
+    var demoData = data.metadata.filter(d=>d.id==parseInt(UserSel))[0]
     console.log(demoData)
+    var demoText = d3.select("#sample-metadata");;
     
+    Object.entries(demoData).forEach(([key,value]) => {
+        var option = demoText.append("ul");
+        var item = option.append("li");
+        item.text(`${key}: ${value}`);
+        });
 
 
 
@@ -71,9 +77,13 @@ function init(){d3.json(path).then(function(data) {
     // now that user has picked subjectID (value from selectData), 
     // create demo text not table (or clear, then recreate)
     // restyle the charts.
-function optionChanged(subjectID){}
+function optionChanged(subjectID){
+
+    
+}
 
 //PREVENT REFESH OF PAGE using d3.event.preventDefault();
+//CLEAR ITEM WITH .html("")
 
 //path is data/samples.json
 // d3.json(path).then(function(data) {
