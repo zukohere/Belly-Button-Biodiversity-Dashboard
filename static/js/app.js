@@ -39,17 +39,18 @@ function init() {
                 'otu_labels': subjData.otu_labels[j]
             });
         }
-        //slice for top 10
-        var chartData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0, 10)
-
+        //slice for top 10 bars; reverse for hbar
+        var barData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0, 10).reverse()
+        // Bubbles get all data
+        var bubData =subjList.sort((a, b) => b.sample_values - a.sample_values)
 
         // 2 Set up trace and plot horizontal bar
         trace1 = {
-            x: chartData.map(d => d.sample_values),//sample_values,
-            y: chartData.map(d => d.otu_ids),//otu_ids,
+            x: barData.map(d => d.sample_values),//sample_values,
+            y: barData.map(d => `OTU ${d.otu_ids}`),//otu_ids,
             type: "bar",
             orientation: "h",
-            text: chartData.map(d => d.otu_labels),//otu_labels,
+            text: barData.map(d => d.otu_labels),//otu_labels,
             mode: "bar+text"
         }
 
@@ -60,19 +61,20 @@ function init() {
         Plotly.newPlot("bar", data1, layout1);
         // Bubble Plot
         trace2 = {
-            x: chartData.map(d => d.otu_ids),//otu_ids,
-            y: chartData.map(d => d.sample_values),//sample_values,
-            text: chartData.map(d => d.otu_labels),//otu_labels,
+            x: bubData.map(d => d.otu_ids),//otu_ids,
+            y: bubData.map(d => d.sample_values),//sample_values,
+            text: bubData.map(d => d.otu_labels),//otu_labels,
             marker: {
-                size: chartData.map(d => d.sample_values),
-                color: chartData.map(d => d.otu_ids)
+                size: bubData.map(d => d.sample_values),
+                color: bubData.map(d => d.otu_ids)
             },
             mode: "markers"
         }
 
         var data2 = [trace2];
         var layout2 = {
-            title: "Bubble- Top 10 OTUs",
+            title: "Bubble- OTUs",
+            xaxis: {title: 'OTU ID'}
         };
         Plotly.newPlot("bubble", data2, layout2);
 
@@ -99,24 +101,26 @@ function optionChanged(subjectID) {
                 'otu_labels': subjData.otu_labels[j]
             });
         }
-        //slice for top 10
-        var chartData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0, 10)
+        //slice for top 10 bars; reverse for hbar
+        var barData = subjList.sort((a, b) => b.sample_values - a.sample_values).slice(0, 10).reverse()
+        // Bubbles get all data
+        var bubData =subjList.sort((a, b) => b.sample_values - a.sample_values)
         
         //restyle the bar
-        var barx = chartData.map(d => d.sample_values)
-        var bary = chartData.map(d => d.otu_ids)
-        var bartext = chartData.map(d => d.otu_labels)
+        var barx = barData.map(d => d.sample_values)
+        var bary = barData.map(d => `OTU ${d.otu_ids}`)
+        var bartext = barData.map(d => d.otu_labels)
         Plotly.restyle(d3.selectAll("#bar").node(), "x", [barx])
         Plotly.restyle(d3.selectAll("#bar").node(), "y", [bary])
         Plotly.restyle(d3.selectAll("#bar").node(), "text", [bartext])
         
         //restyle the bubble
-        var bubx = chartData.map(d => d.otu_ids)//otu_ids,
-        var buby = chartData.map(d => d.sample_values)//sample_values,
-        var bubText = chartData.map(d => d.otu_labels)//otu_labels,
+        var bubx = bubData.map(d => d.otu_ids)//otu_ids,
+        var buby = bubData.map(d => d.sample_values)//sample_values,
+        var bubText = bubData.map(d => d.otu_labels)//otu_labels,
         var bubMarker = {
-            size: chartData.map(d => d.sample_values),
-            color: chartData.map(d => d.otu_ids)
+            size: bubData.map(d => d.sample_values),
+            color: bubData.map(d => d.otu_ids)
         }
         Plotly.restyle(d3.selectAll("#bubble").node(), "x", [bubx])
         Plotly.restyle(d3.selectAll("#bubble").node(), "y", [buby])
