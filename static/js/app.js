@@ -77,37 +77,36 @@ function init() {
             xaxis: {title: 'OTU ID'}
         };
         Plotly.newPlot("bubble", data2, layout2);
-
-        //Gauge Chart
-        //demoData.wfreq
-        trace3 = {
-            "values": [50, 10, 10, 10, 10, 10],
-            "labels": ["Log Level", "Debug", "Info", "Warn", "Error", "Fatal"],
-            "marker": {
-                'colors': [
-                    'rgb(255, 255, 255)',
-                    'rgb(232,226,202)',
-                    'rgb(226,210,172)',
-                    'rgb(223,189,139)',
-                    'rgb(223,162,103)',
-                    'rgb(226,126,64)'
-                ]
-            },
-            "domain": {"x": [0, 0.48]},
-            "name": "Gauge",
-            "hole": .3,
-            "type": "pie",
-            "direction": "clockwise",
-            "rotation": 90,
-            "showlegend": false,
-            "textinfo": "label",
-            "textposition": "inside",
-            "hoverinfo": "none"
-        }
-
-        var data3 = [trace3]
-        Plotly.newPlot("gauge", data3)
-
+         
+        
+        // Gauge chart
+        var data3 = [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: demoData.wfreq,
+              title: { text: "Scrub Frequency/Week" },
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [null, 9] ,dtick: 1},
+                steps: [
+                  { range: [0, 1], color:'rgb(248,243,236)'}, //0-1 },
+                  { range: [1, 2], color:'rgb(244,241,229)'}, //1-2}               
+                  { range: [2, 3], color:'rgb(233,230,202)'}, //2-3
+                  { range: [3, 4], color:'rgb(229,231,179)'}, //3-4
+                  { range: [4, 5], color:'rgb(213,228,157)' }, //4-5
+                  { range: [5, 6], color:'rgb(183,204,146)' }, //5-6
+                  { range: [6, 7], color:'rgb(140,191,136)' }, //6-7
+                  { range: [7, 8], color:'rgb(138,187,143)' }, //7-8
+                  { range: [8, 9], color:'rgb(133,180,138)' }, //8-9
+                
+                ],
+                }
+              }
+          ];
+          
+          var layout3 = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+          Plotly.newPlot('gauge', data3, layout3);
     })
 };
 // based on user selection, function optionChanged will update the page
@@ -149,6 +148,7 @@ function optionChanged(subjectID) {
         var buby = bubData.map(d => d.sample_values)//sample_values,
         var bubText = bubData.map(d => d.otu_labels)//otu_labels,
         var bubMarker = {
+            colorscale: "Earth",
             size: bubData.map(d => d.sample_values),
             color: bubData.map(d => d.otu_ids)
         }
@@ -157,6 +157,7 @@ function optionChanged(subjectID) {
         Plotly.restyle(d3.selectAll("#bubble").node(), "text", [bubText])
         Plotly.restyle(d3.selectAll("#bubble").node(), "marker", [bubMarker])
         
+
         //change the demographic info
         d3.select("#sample-metadata").html("")
         var demoData = data.metadata.filter(d => d.id == parseInt(UserSel))[0]
@@ -168,6 +169,10 @@ function optionChanged(subjectID) {
             var item = option.append("li");
             item.text(`${key}: ${value}`);
         });
+        
+        // restyle the gauge
+        Plotly.restyle(d3.selectAll("#gauge").node(), "value", [demoData.wfreq])
+        
     })
 
 }

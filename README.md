@@ -1,5 +1,6 @@
 # plotly-challenge
 Repo for HW 15
+Deployed at: https://zukohere.github.io/plotly-challenge/
 
 This assignment creates an interactive dashboard by subject for measurements associated with a study of biodiversity in the human navel. A dropdown menu by subject id populates a list of demographic info as well as visualizations associated with the study data.
 
