@@ -35,4 +35,4 @@ my_array = [\
     <p> }</p>
 ]\
 \
-This enabled the data to be sorted using sort((a, b) => b.<some field> - a.<some_field>)
+This enabled the data to be sorted using sort((a, b) => b.<some_field> - a.<some_field>)
