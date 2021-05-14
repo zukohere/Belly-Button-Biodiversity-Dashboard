@@ -11,7 +11,7 @@ One interesting coding concept of note. Though the sample_values appear to be so
     <p> field2: [label_0, label_1, label_2, label_3,...,label_n]</p>
 }\
 \
-The sorting method I'm most familiar with deals with record-style sorting, so I restructured the data using a for loop that gave the data the following structure:
+The sorting method I'm most familiar with deals with record-style sorting, so I restructured the data using a for loop that gave the data the following structure:\
 my_array = [\
     <p> {</p>
     <p> id: <subject_id>,</p>

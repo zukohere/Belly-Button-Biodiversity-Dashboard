@@ -78,6 +78,36 @@ function init() {
         };
         Plotly.newPlot("bubble", data2, layout2);
 
+        //Gauge Chart
+        //demoData.wfreq
+        trace3 = {
+            "values": [50, 10, 10, 10, 10, 10],
+            "labels": ["Log Level", "Debug", "Info", "Warn", "Error", "Fatal"],
+            "marker": {
+                'colors': [
+                    'rgb(255, 255, 255)',
+                    'rgb(232,226,202)',
+                    'rgb(226,210,172)',
+                    'rgb(223,189,139)',
+                    'rgb(223,162,103)',
+                    'rgb(226,126,64)'
+                ]
+            },
+            "domain": {"x": [0, 0.48]},
+            "name": "Gauge",
+            "hole": .3,
+            "type": "pie",
+            "direction": "clockwise",
+            "rotation": 90,
+            "showlegend": false,
+            "textinfo": "label",
+            "textposition": "inside",
+            "hoverinfo": "none"
+        }
+
+        var data3 = [trace3]
+        Plotly.newPlot("gauge", data3)
+
     })
 };
 // based on user selection, function optionChanged will update the page
