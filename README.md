@@ -1,8 +1,8 @@
 # plotly-challenge
 Repo for HW 15
-Deployed at: https://zukohere.github.io/plotly-challenge/
+Deployed at: https://zukohere.github.io/Belly-Button-Biodiversity-Dashboard/
 
-This assignment creates an interactive dashboard by subject for measurements associated with a study of biodiversity in the human navel. A dropdown menu by subject id populates a list of demographic info as well as visualizations associated with the study data.
+This project entails interactive dashboard by subject for measurements associated with a study of biodiversity in the human navel. A dropdown menu by subject id populates a list of demographic info as well as visualizations associated with the study data.
 
 One interesting coding concept of note. Though the sample_values appear to be sorted, I explored methods to ensure this assumption. However, the initial structure within the json file did not readily lend itself to be sorted (ie. if one field gets sorted, what guarantee do I have that another field will have its corresponding values sorted along with it?). The initital structure was:\
 {\
