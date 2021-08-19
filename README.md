@@ -1,5 +1,5 @@
-# plotly-challenge
-Repo for HW 15
+# Belly Button Biodiversity Dashboard
+
 Deployed at: https://zukohere.github.io/Belly-Button-Biodiversity-Dashboard/
 
 This project entails interactive dashboard by subject for measurements associated with a study of biodiversity in the human navel. A dropdown menu by subject id populates a list of demographic info as well as visualizations associated with the study data.
